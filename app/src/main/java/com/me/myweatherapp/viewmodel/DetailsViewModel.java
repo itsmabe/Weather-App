@@ -30,14 +30,14 @@ public class DetailsViewModel extends ViewModel {
     }
 
     private void loadData(Context ctx, final String query) {
-
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, WEATHER_URL + query, null, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            JSONArray condition = response.getJSONObject("data").getJSONArray("current_condition");
+                            JSONObject data = response.getJSONObject("data");
+                            JSONArray condition = data.getJSONArray("current_condition");
                             String temperature = condition.getJSONObject(0).getString("temp_C");
                             String humidity = condition.getJSONObject(0).getString("humidity");
                             String wind = condition.getJSONObject(0).getString("windspeedKmph");
